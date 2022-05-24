@@ -9,7 +9,8 @@ So, there are advantages of reduced latency and performance to handle more traff
 gRPC is Google's remote procedure call (RPC) system that uses tcp/ip and HTTP/2 protocols.<br>
 RPC is a protocol that easily calls the service of another server as if it were an internal service call.<br>
 Since it is independent of language between function calls, it can improve distributed application development productivity.
-<img src="https://user-images.githubusercontent.com/17774927/170109844-cd9ccc79-f923-4051-81e1-92460322e788.png">
+<br>
+<img src="https://user-images.githubusercontent.com/17774927/170109844-cd9ccc79-f923-4051-81e1-92460322e788.png" alt="https://stackoverflow.com/questions/37622540/web-client-communicate-with-grpc-server">
 
 ## Communication types
 When there are N requests, only `async` is supported,<br>
