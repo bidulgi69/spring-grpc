@@ -10,7 +10,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
-import java.util.LinkedList;
 import java.util.List;
 
 //  supports all communication methods (unary, server stream, client stream, bi-stream)
@@ -50,7 +49,6 @@ public class GrpcAsyncClient {
     }
 
     public void serverStream(final String name) {
-        final List<String> messages = new LinkedList<>();
         try {
             asyncStub.sayHelloServerStream(
                     HelloRequest.newBuilder()
@@ -59,7 +57,7 @@ public class GrpcAsyncClient {
                     new StreamObserver<>() {
                         @Override
                         public void onNext(HelloReply value) {
-                            messages.add(value.getMessage());
+                            logger.info("[Async, server stream] Received from the server: {}", value.getMessage());
                         }
 
                         @Override
@@ -73,9 +71,6 @@ public class GrpcAsyncClient {
                         }
                     }
             );
-            
-            messages
-                    .forEach(message -> logger.info("[Async, server stream] Received from the server: {}", message));
         } catch (final StatusRuntimeException e) {
             logger.error("FAILED with " + e.getStatus().getCode().name());
         }
@@ -114,12 +109,11 @@ public class GrpcAsyncClient {
     }
 
     public void biStream(final List<String> names) {
-        final List<String> messages = new LinkedList<>();
         try {
             StreamObserver<HelloReply> responseObserver = new StreamObserver<>() {
                 @Override
                 public void onNext(HelloReply value) {
-                    messages.add(value.getMessage());
+                    logger.info("[Async, bi-stream] Received from server: {}", value.getMessage());
                 }
 
                 @Override
@@ -142,9 +136,6 @@ public class GrpcAsyncClient {
                                     .build()
                     ));
             requestObserver.onCompleted();
-
-            messages
-                    .forEach(message -> logger.info("[Async, bi-stream] Received from server: {}", message));
         } catch (final StatusRuntimeException e) {
             logger.error("FAILED with " + e.getStatus().getCode().name());
         }
