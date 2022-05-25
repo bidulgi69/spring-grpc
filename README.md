@@ -56,7 +56,7 @@ So there are seven things in total.
 ## Usage
 1. Build `.proto` file first.
     
-        cd grpc-lib && ./gradlew build
+        ./gradlew :grpc-lib:build
         
     <img src="https://user-images.githubusercontent.com/17774927/170113055-a81ac63f-a9ca-4ba0-b792-1d1c52ae1b18.png">
     <br>If the build is successful, you can see that the java file(SimpleGrpc) has been created as above.<br>
